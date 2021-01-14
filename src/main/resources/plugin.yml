@@ -1,0 +1,11 @@
+name: Skywars
+version: ${project.version}
+main: de.zayon.skywars.Skywars
+api-version: 1.14
+authors: [ DasNiklas ]
+description: Skywars plugin
+depend:
+  - ZayonAPI
+commands:
+  setspawn:
+  start:
