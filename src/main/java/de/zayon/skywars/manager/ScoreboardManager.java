@@ -63,8 +63,8 @@ public class ScoreboardManager {
                 "%deaths%", this.skywars.getUserFactory().getDeaths(player),
                 "%kd%", this.skywars.getUserFactory().getKDRatio(player),
                 "%gamestatus%", GameState.state.toString(),
-                "%time%", getTime(IngameCountdown.counter),
-                "%kit%", this.skywars.getKitManager().getCurrentKit(player).toString().toLowerCase(Locale.GERMANY),
+                "%time%", getTime(IngameCountdown.ingameCounter),
+                "%kit%", getKit(player),
                 "%team%", getTeam(player)
         );
     }
@@ -76,7 +76,20 @@ public class ScoreboardManager {
     }
 
     private String getTeam(Player player) {
-        return GameData.getTeamCache().get(player).getTeamName();
+        if(GameData.getTeamCache().containsKey(player)) {
+            return GameData.getTeamCache().get(player).getTeamName();
+        } else {
+            return "Kein Team";
+        }
+    }
+
+    private String getKit(Player player) {
+        String kitName = this.skywars.getKitManager().getCurrentKit(player).toString().toLowerCase(Locale.GERMANY);
+        return kitName.substring(0, 1).toUpperCase() + kitName.substring(1).replace("_", " ")
+                .replaceAll("oe", "ö")
+                .replaceAll("ae", "ä")
+                .replaceAll("ue", "ü")
+                .toLowerCase(Locale.GERMANY);
     }
 
 }

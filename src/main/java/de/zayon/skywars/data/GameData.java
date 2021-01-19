@@ -26,13 +26,13 @@ public class GameData {
     @Getter private static String mapBuilder = Skywars.getSkywars().getGeneralConfig().getOrSetDefault("config.map.builder", "Builder");
     @Getter private static Location lobbyLocation = new Location(Bukkit.getWorld("WLobby"), 4.5, 44, -71.5, 0, 0);
 
-    @Getter @Setter private static ArrayList<Material> itemsToFind = new ArrayList<Material>();
-    @Getter @Setter private static ArrayList<Player> ingame = new ArrayList<Player>();
+    @Getter @Setter private static ArrayList<Player> ingame = new ArrayList<>();
     public static void removePlayerFromIngame(Player player) {ingame.remove(player);}
-    @Getter private static HashMap<Player, Team> teamCache = new HashMap<Player, Team>();
-    @Getter private static ArrayList<ItemStack> itemList = Skywars.getSkywars().getGeneralConfig().getOrSetDefault("config.game.itempool", new ArrayList<ItemStack>(
+    @Getter private static HashMap<Player, Team> teamCache = new HashMap<>();
+    @Getter private static ArrayList<ItemStack> itemList = Skywars.getSkywars().getGeneralConfig().getOrSetDefault("config.game.itempool", new ArrayList<>(
             Arrays.asList(
-                    Items.createItem(Material.BRICK, "", 32)
+                    Items.createItem(Material.BRICK, "", 32),
+                    Items.createItem(Material.BRICK, "", 64)
             )
     ));
 

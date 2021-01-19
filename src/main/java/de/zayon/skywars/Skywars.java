@@ -1,5 +1,6 @@
 package de.zayon.skywars;
 
+import de.dytanic.cloudnet.ext.bridge.bukkit.BukkitCloudNetHelper;
 import de.exceptionflug.mccommons.config.shared.ConfigFactory;
 import de.exceptionflug.mccommons.config.spigot.SpigotConfig;
 import de.zayon.skywars.commands.SetspawnCommand;
@@ -20,6 +21,8 @@ import de.zayon.zayonapi.ZayonAPI;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameRule;
+import org.bukkit.WorldCreator;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -86,19 +89,31 @@ public class Skywars extends JavaPlugin {
         this.endingCoutdown = new EndingCoutdown(this);
         this.ingameCountdown = new IngameCountdown(this);
 
+        WorldCreator w = WorldCreator.name("WLobby");
+        Bukkit.createWorld(w);
+        skywars.getServer().getWorlds().add(Bukkit.getWorld("WLobby"));
+        loadTeams();
+        this.userFactory.createTable();
 
-        Bukkit.getServer().getPluginManager().registerEvents(asyncPlayerChatListener, this);
-        Bukkit.getServer().getPluginManager().registerEvents(buildListener, this);
-        Bukkit.getServer().getPluginManager().registerEvents(damageListener, this);
-        Bukkit.getServer().getPluginManager().registerEvents(deathListener, this);
-        Bukkit.getServer().getPluginManager().registerEvents(interactListener, this);
-        Bukkit.getServer().getPluginManager().registerEvents(playerJoinListener, this);
-        Bukkit.getServer().getPluginManager().registerEvents(playerQuitListener, this);
-        Bukkit.getServer().getPluginManager().registerEvents(protectionListener, this);
-        Bukkit.getServer().getPluginManager().registerEvents(serverPingListener, this);
-        Bukkit.getServer().getPluginManager().registerEvents(weatherChangeListener, this);
+        Bukkit.getPluginManager().registerEvents(asyncPlayerChatListener, this);
+        Bukkit.getPluginManager().registerEvents(buildListener, this);
+        Bukkit.getPluginManager().registerEvents(damageListener, this);
+        Bukkit.getPluginManager().registerEvents(deathListener, this);
+        Bukkit.getPluginManager().registerEvents(interactListener, this);
+        Bukkit.getPluginManager().registerEvents(playerJoinListener, this);
+        Bukkit.getPluginManager().registerEvents(playerQuitListener, this);
+        Bukkit.getPluginManager().registerEvents(protectionListener, this);
+        Bukkit.getPluginManager().registerEvents(serverPingListener, this);
+        Bukkit.getPluginManager().registerEvents(weatherChangeListener, this);
         getCommand("start").setExecutor(startCommand);
         getCommand("setspawn").setExecutor(setspawnCommand);
+
+        Bukkit.getWorld("world").setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
+        Bukkit.getWorld("WLobby").setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
+        Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+        Bukkit.getWorld("world").setGameRule(GameRule.DO_WEATHER_CYCLE, false);
+        Bukkit.getWorld("world").setTime(5000L);
+        BukkitCloudNetHelper.setExtra(this.skywars.getGeneralConfig().getOrSetDefault("config.map.name", "MapName"));
     }
 
     public static void loadTeams() {
