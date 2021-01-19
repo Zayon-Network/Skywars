@@ -6,6 +6,7 @@ import de.exceptionflug.mccommons.config.spigot.SpigotConfig;
 import de.exceptionflug.mccommons.core.Converters;
 import de.exceptionflug.mccommons.inventories.api.CallResult;
 import de.exceptionflug.mccommons.inventories.api.item.ItemStackWrapper;
+import de.exceptionflug.mccommons.inventories.api.item.ItemType;
 import de.exceptionflug.mccommons.inventories.spigot.design.SpigotOnePageInventoryWrapper;
 import de.zayon.skywars.Skywars;
 import de.zayon.skywars.data.StringData;
@@ -22,13 +23,26 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class KitInventory extends SpigotOnePageInventoryWrapper {
     private static final ConfigWrapper CONFIG_WRAPPER = ConfigFactory.create(Skywars.getSkywars().getDescription().getName() + "/inventories", KitInventory.class, SpigotConfig.class);
 
     public KitInventory(Player player) {
         super(player, CONFIG_WRAPPER);
+        setTitle("§2Kitauswahl §7» " + ZayonAPI.getZayonAPI().getPointsAPI().getPoints(player) + " Points");
+        getInventoryItemMap().forEach((key, item) -> {
+            if(getPlayer().hasPermission("skywars.kits." + item.getArguments().get(0).toString().toLowerCase()) || getPlayer().hasPermission("skywars.kits.*")) {
+                List<String> lore = item.getItemStackWrapper().getLore();
+                lore.add("");
+                lore.add("§aGEKAUFT!");
+                item.getItemStackWrapper().setLore(lore);
+            }
+        });
+        Bukkit.getConsoleSender().sendMessage("jajaja");
+        updateInventory();
     }
 
     public void updateInventory() {

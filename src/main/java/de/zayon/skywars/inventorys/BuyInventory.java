@@ -30,13 +30,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class BuyInventory extends SpigotOnePageInventoryWrapper {
-    private static final ConfigWrapper CONFIG_WRAPPER = ConfigFactory.create(Skywars.getSkywars().getDescription().getName() + "/inventories", KitInventory.class, SpigotConfig.class);
+    private static final ConfigWrapper CONFIG_WRAPPER = ConfigFactory.create(Skywars.getSkywars().getDescription().getName() + "/inventories", BuyInventory.class, SpigotConfig.class);
 
     public BuyInventory(Player player, String kitName, Integer price, ItemStack icon) {
         super(player, CONFIG_WRAPPER);
         setInventoryType(de.exceptionflug.mccommons.inventories.api.InventoryType.BREWING_STAND);
 
-        ArrayList<Object> arguments0 = new ArrayList<Object>(Arrays.asList(kitName, price, icon));
+        ArrayList<Object> arguments0 = new ArrayList<>(Arrays.asList(kitName, price, icon));
         set(0, Items.createItem(Material.LIME_DYE, "§aKaufen", 1), "buyKit", new Arguments(arguments0));
         set(1, Items.createItem(icon.getType(), StringData.getHighlightColor()+kitName.replace("oe", "ö").replace("ue", "ü").replace("ae", "ä")+" §7» "+price+" Punkte", 1), "nothing");
         set(2, Items.createItem(Material.RED_DYE, "§cAbbrechen", 1), "deny");

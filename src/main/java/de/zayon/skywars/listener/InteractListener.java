@@ -44,21 +44,7 @@ public class InteractListener implements Listener {
 
         if (GameState.state == GameState.LOBBY) {
             if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase("§7Teamauswahl")) {
-                Inventory inv = Bukkit.createInventory(null, (int) Math.ceil(GameData.getTeamAmount() / 9) * 9, StringData.getHighlightColor() + "Team auswahl");
-
-                int i = 0;
-                for (Team t : ZayonAPI.getZayonAPI().getTeamAPI().getRegisteredTeams()) {
-                    if (t.getRegisteredPlayers().contains(player)) {
-                        inv.setItem(i, Items.createLore(Material.LIME_DYE, StringData.getHighlightColor() + "Team-" + (i + 1), StringData.getHighlightColor() + t.size() + "§7/" + StringData.getHighlightColor() + t.getMaxTeamSize(), 1));
-                    } else if (t.size() == t.getMaxTeamSize()) {
-                        inv.setItem(i, Items.createLore(Material.RED_DYE, StringData.getHighlightColor() + "Team-" + (i + 1), StringData.getHighlightColor() + t.size() + "§7/" + StringData.getHighlightColor() + t.getMaxTeamSize(), 1));
-                    } else {
-                        inv.setItem(i, Items.createLore(Material.LIGHT_GRAY_DYE, StringData.getHighlightColor() + "Team-" + (i + 1), StringData.getHighlightColor() + t.size() + "§7/" + StringData.getHighlightColor() + t.getMaxTeamSize(), 1));
-                    }
-                    i++;
-                }
-
-                player.openInventory((Inventory) new TeamSelectInventroy(player).build());
+                player.openInventory(new TeamSelectInventroy(player).build());
             } else if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase("§7Zurück zur Lobby")) {
                 BridgePlayerManager.getInstance().proxySendPlayer(BridgePlayerManager.getInstance().getOnlinePlayer(player.getUniqueId()), "Lobby-1");
             } else if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase("§7Starte das Spiel")) {
@@ -69,7 +55,7 @@ public class InteractListener implements Listener {
                     player.sendMessage(StringData.getPrefix() + "Es sind leider " + StringData.getHighlightColor() + "nicht genug Spieler §7Im Spiel.");
                 }
             } else if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase("§7Kitauswahl")) {
-                player.openInventory((Inventory) new KitInventory(player).build());
+                player.openInventory(new KitInventory(player).build());
             }
         } else if (GameState.state == GameState.INGAME) {
             if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {

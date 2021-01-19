@@ -1,5 +1,9 @@
 package de.zayon.skywars.inventorys;
 
+import de.dytanic.cloudnet.ext.bridge.bukkit.BukkitCloudNetHelper;
+import de.dytanic.cloudnet.ext.bridge.node.CloudNetBridgeModule;
+import de.dytanic.cloudnet.ext.cloudperms.CloudPermissionsPermissionManagement;
+import de.dytanic.cloudnet.ext.cloudperms.node.CloudNetCloudPermissionsModule;
 import de.exceptionflug.mccommons.config.shared.ConfigFactory;
 import de.exceptionflug.mccommons.config.shared.ConfigWrapper;
 import de.exceptionflug.mccommons.config.spigot.SpigotConfig;
@@ -15,6 +19,7 @@ import de.zayon.skywars.manager.KitManager;
 import de.zayon.zayonapi.TeamAPI.Team;
 import de.zayon.zayonapi.ZayonAPI;
 import de.zayon.zayonapi.items.Items;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -25,7 +30,7 @@ import java.util.ArrayList;
 
 public class TeamSelectInventroy extends SpigotOnePageInventoryWrapper {
 
-    private static final ConfigWrapper CONFIG_WRAPPER = ConfigFactory.create(Skywars.getSkywars().getDescription().getName() + "/inventories", KitInventory.class, SpigotConfig.class);
+    private static final ConfigWrapper CONFIG_WRAPPER = ConfigFactory.create(Skywars.getSkywars().getDescription().getName() + "/inventories", TeamSelectInventroy.class, SpigotConfig.class);
 
     public TeamSelectInventroy(Player player) {
         super(player, CONFIG_WRAPPER);
@@ -34,13 +39,12 @@ public class TeamSelectInventroy extends SpigotOnePageInventoryWrapper {
 
         for (Team t : ZayonAPI.getZayonAPI().getTeamAPI().getRegisteredTeams()) {
             ArrayList<Object> argument = new ArrayList<>();
-
             if (t.getRegisteredPlayers().contains(player)) {
-                argument.add(t);
                 add(Items.createLore(Material.LIME_DYE, t.getTeamName(), StringData.getHighlightColor() + t.size() + "§7/" + StringData.getHighlightColor() + t.getMaxTeamSize(), 1), "nothing");
-            } else if (t.size() == t.getMaxTeamSize()) {
+            } else if (t.size().equals(t.getMaxTeamSize())) {
                 add(Items.createLore(Material.RED_DYE, t.getTeamName(), StringData.getHighlightColor() + t.size() + "§7/" + StringData.getHighlightColor() + t.getMaxTeamSize(), 1), "nothing");
             } else {
+                argument.add(t);
                 add(Items.createLore(Material.LIGHT_GRAY_DYE, t.getTeamName(), StringData.getHighlightColor() + t.size() + "§7/" + StringData.getHighlightColor() + t.getMaxTeamSize(), 1), "selectTeam", new Arguments(argument));
             }
         }
@@ -55,8 +59,13 @@ public class TeamSelectInventroy extends SpigotOnePageInventoryWrapper {
             return CallResult.DENY_GRABBING;
         });
         registerActionHandler("selectTeam", click -> {
-            Team argument = (Team) click.getArguments().get(0);
-            argument.addPlayer((Player) getPlayer());
+            Player player = getPlayer();
+            Team argument = click.getArguments().get(0);
+
+            argument.addPlayer(player);
+            GameData.getTeamCache().put(player, argument);
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 0);
+            player.closeInventory();
             return CallResult.DENY_GRABBING;
         });
     }

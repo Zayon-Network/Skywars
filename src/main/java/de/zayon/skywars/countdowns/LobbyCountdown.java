@@ -109,6 +109,7 @@ public class LobbyCountdown {
                                             ZayonAPI.getZayonAPI().getTeamAPI().getRegisteredTeams().indexOf(GameData.getTeamCache().get(player)));
                                     player.getInventory().clear();
                                     player.setGameMode(GameMode.SURVIVAL);
+                                    player.setDisplayName(GameData.getTeamCache().get(player).getTeamColor() + player.getDisplayName());
                                     //TODO GIVE KIT TO PLAYER
 
                                     Bukkit.getScheduler().runTask(Skywars.getSkywars(), () -> {

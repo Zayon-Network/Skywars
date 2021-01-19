@@ -5,7 +5,7 @@ import lombok.Getter;
 
 public class StringData {
 
-    @Getter private static String prefix = Skywars.getSkywars().getGeneralConfig().getOrSetDefault("config.prefix", "§3Bingo §8◆ §7");
+    @Getter private static String prefix = Skywars.getSkywars().getGeneralConfig().getOrSetDefault("config.prefix", "§2Skywars §8◆ §7");
 
     @Getter private static String noPerms = Skywars.getSkywars().getGeneralConfig().getOrSetDefault("config.noPerms", "Keine Rechte!");
 

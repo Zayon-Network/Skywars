@@ -36,9 +36,9 @@ public class KitManager {
                     player.getInventory().setItem(3, Items.createItem(Material.PUMPKIN_PIE, "§7Kürbiskuchen", 8));
                     break;
                 case MAURER:
-                    player.getInventory().setItem(0, Items.createItem(Material.BRICK, "§7Backstein", 64));
-                    player.getInventory().setItem(1, Items.createItem(Material.BRICK, "§7Backstein", 64));
-                    player.getInventory().setItem(2, Items.createItem(Material.BRICK, "§7Backstein", 64));
+                    player.getInventory().setItem(0, Items.createItem(Material.BRICKS, "§7Backstein", 64));
+                    player.getInventory().setItem(1, Items.createItem(Material.BRICKS, "§7Backstein", 64));
+                    player.getInventory().setItem(2, Items.createItem(Material.BRICKS, "§7Backstein", 64));
                     player.getInventory().setHelmet(Items.createItem(Material.GOLDEN_HELMET, "§7Bauerbeiter Helm", 1));
                     break;
                 case ENDERMAN:

@@ -125,11 +125,11 @@ public class Skywars extends JavaPlugin {
                         ChatColor.YELLOW,
                         ChatColor.LIGHT_PURPLE,
                         ChatColor.AQUA,
-                        ChatColor.DARK_GREEN,
                         ChatColor.GOLD,
                         ChatColor.DARK_AQUA,
                         ChatColor.DARK_RED,
-                        ChatColor.DARK_BLUE));
+                        ChatColor.DARK_BLUE,
+                        ChatColor.DARK_PURPLE));
 
 
         for (int i = 0; i < GameData.getTeamAmount(); i++) {
