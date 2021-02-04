@@ -140,13 +140,13 @@ public class KitManager {
                     break;
                 case PYRO: {
                     ItemStack potion = new ItemStack(Material.POTION, 2);
-                    PotionEffect potionEffect = new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 6000, 1, true, true, true);
-                    PotionMeta potionMeta = (PotionMeta) potion.getItemMeta();
-                    potionMeta.addCustomEffect(potionEffect, true);
-                    potion.setItemMeta((ItemMeta) potionEffect);
+//TODO                    PotionEffect potionEffect = new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 6000, 1, true, true, true);
+//                    PotionMeta potionMeta = (PotionMeta) potion.getItemMeta();
+//                    potionMeta.addCustomEffect(potionEffect, true);
+//                    potion.setItemMeta((ItemMeta) potionEffect);
 
                     player.getInventory().setItem(0, Items.createEnchantment(Material.IRON_SWORD, "§cEisenschwert", 1, Enchantment.FIRE_ASPECT, 2));
-                    player.getInventory().setItem(1, potion);
+//                    player.getInventory().setItem(1, potion);
                     break;
                 }
                 case MLG:

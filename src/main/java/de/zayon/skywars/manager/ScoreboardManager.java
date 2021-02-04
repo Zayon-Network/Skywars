@@ -5,6 +5,7 @@ import de.zayon.skywars.countdowns.IngameCountdown;
 import de.zayon.skywars.data.GameData;
 import de.zayon.skywars.data.GameState;
 import de.zayon.skywars.data.ScoreboardData;
+import de.zayon.skywars.listener.DeathListener;
 import de.zayon.skywars.sidebar.Sidebar;
 import de.zayon.skywars.sidebar.SidebarCache;
 import org.bukkit.entity.Player;
@@ -59,11 +60,9 @@ public class ScoreboardManager {
         sidebar.setDisplayName(scoreboardData.getDisplayName());
         SimpleDateFormat df = new SimpleDateFormat("HH:mm");
         sidebar.setLines(scoreboardData.getLines(),
-                "%kills%", this.skywars.getUserFactory().getKills(player),
-                "%deaths%", this.skywars.getUserFactory().getDeaths(player),
-                "%kd%", this.skywars.getUserFactory().getKDRatio(player),
+                "%kills%", this.skywars.getDeathListener().getKillCount().get(player),
                 "%gamestatus%", GameState.state.toString(),
-                "%time%", getTime(IngameCountdown.ingameCounter),
+                "%time%", getTime(IngameCountdown.getCounter()),
                 "%kit%", getKit(player),
                 "%team%", getTeam(player)
         );

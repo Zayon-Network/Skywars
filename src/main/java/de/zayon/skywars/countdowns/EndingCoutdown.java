@@ -10,10 +10,7 @@ import de.zayon.zayonapi.PointsAPI.PointsAPI;
 import de.zayon.zayonapi.TeamAPI.Team;
 import de.zayon.zayonapi.ZayonAPI;
 import de.zayon.zayonapi.items.Items;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 public class EndingCoutdown {
@@ -30,19 +27,19 @@ public class EndingCoutdown {
         GameState.state = GameState.END;
         Bukkit.getScheduler().cancelTask(IngameCountdown.ingameCounter);
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.sendTitle(StringData.getHighlightColor() + "Team-" + (t.getTeamName()), " §7hat das Spiel Gewonnen", 20, 60, 0);
+            player.sendTitle(StringData.getHighlightColor() +  (t.getTeamName()), " §7hat das Spiel Gewonnen", 20, 60, 0);
             player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 100, 0);
             player.spawnParticle(Particle.TOTEM, player.getLocation().add(0,1,0), 250);
         }
 
         Bukkit.getScheduler().runTaskLater(Skywars.getSkywars(), () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                player.teleport(GameData.getLobbyLocation());
+                player.teleport(new Location(Bukkit.getWorld("WLobby"), 152.5, 52, 148.5, 60, 0));
                 player.getInventory().clear();
                 player.getInventory().setItem(8, Items.createItem(Material.HEART_OF_THE_SEA, "§7Zurück zur Lobby", 1));
             }
             Bukkit.broadcastMessage("");
-            Bukkit.broadcastMessage(StringData.getPrefix() + StringData.getHighlightColor() + "Team-" + t.getTeamName() + " §7hat das Spiel Gewonnen");
+            Bukkit.broadcastMessage(StringData.getPrefix() + StringData.getHighlightColor() + t.getTeamName() + " §7hat das Spiel Gewonnen");
             Bukkit.broadcastMessage(StringData.getPrefix() + "Zu diesem Team gehören:");
             for (Player player : t.getRegisteredPlayers()) {
                 Bukkit.broadcastMessage("§7- " + player.getDisplayName());

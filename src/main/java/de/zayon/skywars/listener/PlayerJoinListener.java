@@ -39,22 +39,20 @@ public class PlayerJoinListener implements Listener {
         this.skywars.getUserFactory().createUser(player);
         this.skywars.getKitManager().setKit(player, KitManager.Kit.STARTER);
         Bukkit.getOnlinePlayers().forEach(this.skywars.getScoreboardManager()::setUserScoreboard);
+        Skywars.getSkywars().getDeathListener().getKillCount().put(player, 0);
 
         if (GameState.state == GameState.LOBBY) {
             Bukkit.broadcastMessage(StringData.getPrefix() + StringData.getHighlightColor() + player.getDisplayName() + " §7hat das Spiel betreten.");
             player.getInventory().setItem(8, Items.createItem(Material.HEART_OF_THE_SEA,"§7Zurück zur Lobby", 1));
-            player.getInventory().setItem(0, Items.createItem(Material.TOTEM_OF_UNDYING, "§7Teamauswahl", 1));
-            player.getInventory().setItem(1, Items.createItem(Material.CHEST,  "§7Kitauswahl", 1));
+            player.getInventory().setItem(0, Items.createItem(Material.CHEST,  "§7Kitauswahl", 1));
+            player.getInventory().setItem(1, Items.createItem(Material.TOTEM_OF_UNDYING, "§7Teamauswahl", 1));
             player.updateInventory();
 
             ArrayList<Player> playerList = GameData.getIngame();
             playerList.add(player);
             GameData.setIngame(playerList);
 
-            if (player.hasPermission("skywars.start") || player.hasPermission("rang.vip+")) {
-                player.getInventory().setItem(2, Items.createItem(Material.DIAMOND, "§7Starte das Spiel", 1));
-            }
-            if (Bukkit.getOnlinePlayers().size() == 2) {
+            if (Bukkit.getOnlinePlayers().size() == (GameData.getTeamSize()+1)) {
                 LobbyCountdown.startLobbyCountdown(false);
             }
             for (Player all : Bukkit.getOnlinePlayers()) {
@@ -62,7 +60,6 @@ public class PlayerJoinListener implements Listener {
             }
         }  else if (GameState.state == GameState.INGAME) {
 
-//            player.teleport(GameData.getLobbyLocation());
             player.setGameMode(GameMode.SURVIVAL);
             player.setFlying(true);
             player.setAllowFlight(true);
@@ -81,6 +78,6 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void handleSpawn(PlayerSpawnLocationEvent event) {
 //        Location location = GameData.getLobbyLocation();
-        event.setSpawnLocation(new Location(Bukkit.getWorld("WLobby"), 4.5, 44, -71.5, 0, 0));
+        event.setSpawnLocation(new Location(Bukkit.getWorld("WLobby"), 152.5, 52, 148.5, 60, 0));
     }
 }

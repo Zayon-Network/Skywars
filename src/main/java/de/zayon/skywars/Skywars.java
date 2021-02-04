@@ -54,6 +54,7 @@ public class Skywars extends JavaPlugin {
     @Getter private ProtectionListener protectionListener;
     @Getter private ServerPingListener serverPingListener;
     @Getter private WeatherChangeListener weatherChangeListener;
+    @Getter private PlayerMoveListener playerMoveListener;
 
 
     @Getter private LobbyCountdown lobbyCountdown;
@@ -66,6 +67,10 @@ public class Skywars extends JavaPlugin {
 
         this.generalConfig = ConfigFactory.create(new File(getDataFolder(), "general_settings.yml"), SpigotConfig.class);
         this.locationConfig = ConfigFactory.create(new File(getDataFolder(), "location_settings.yml"), SpigotConfig.class);
+
+        WorldCreator w = WorldCreator.name("WLobby");
+        Bukkit.createWorld(w);
+        skywars.getServer().getWorlds().add(Bukkit.getWorld("WLobby"));
 
         this.sidebarCache = new SidebarCache();
         this.scoreboardManager = new ScoreboardManager(this);
@@ -88,10 +93,8 @@ public class Skywars extends JavaPlugin {
         this.lobbyCountdown = new LobbyCountdown(this);
         this.endingCoutdown = new EndingCoutdown(this);
         this.ingameCountdown = new IngameCountdown(this);
+        this.playerMoveListener = new PlayerMoveListener(this);
 
-        WorldCreator w = WorldCreator.name("WLobby");
-        Bukkit.createWorld(w);
-        skywars.getServer().getWorlds().add(Bukkit.getWorld("WLobby"));
         loadTeams();
         this.userFactory.createTable();
 
@@ -105,6 +108,7 @@ public class Skywars extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(protectionListener, this);
         Bukkit.getPluginManager().registerEvents(serverPingListener, this);
         Bukkit.getPluginManager().registerEvents(weatherChangeListener, this);
+        Bukkit.getPluginManager().registerEvents(playerMoveListener, this);
         getCommand("start").setExecutor(startCommand);
         getCommand("setspawn").setExecutor(setspawnCommand);
 

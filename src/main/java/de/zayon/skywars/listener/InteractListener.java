@@ -7,6 +7,7 @@ import de.zayon.skywars.data.GameState;
 import de.zayon.skywars.data.StringData;
 import de.zayon.skywars.inventorys.KitInventory;
 import de.zayon.skywars.inventorys.TeamSelectInventroy;
+import de.zayon.skywars.sidebar.util.UtilFunctions;
 import de.zayon.zayonapi.TeamAPI.Team;
 import de.zayon.zayonapi.ZayonAPI;
 import de.zayon.zayonapi.items.Items;
@@ -62,18 +63,13 @@ public class InteractListener implements Listener {
                 if (event.getClickedBlock().getType() == Material.CHEST || event.getClickedBlock().getType() == Material.TRAPPED_CHEST) {
 
                     Location loc = event.getClickedBlock().getLocation();
-                    Chest chest = (Chest) loc.getBlock();
+                    Chest chest = (Chest) loc.getBlock().getState();
 
                     if (!chestCache.contains(chest)) {
 
                         Inventory inventory = chest.getBlockInventory();
                         List<ItemStack> items = GameData.getItemList();
-                        Random r = new Random();
-                        int l = r.nextInt(15);
-                        if (l < 10) {
-                            l = +8;
-                        }
-
+                        int l = UtilFunctions.getRandomNumberInRange(10, 20);
                         while (l != 0) {
                             l--;
                             Random r2 = new Random();
