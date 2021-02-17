@@ -33,6 +33,7 @@ public class PlayerJoinListener implements Listener {
         player.setHealthScale(20D);
         player.setHealth(20.0D);
         player.setFoodLevel(20);
+        player.setTotalExperience(0);
         player.setGameMode(GameMode.ADVENTURE);
         event.setJoinMessage("");
 

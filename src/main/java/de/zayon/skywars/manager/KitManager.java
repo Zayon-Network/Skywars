@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.block.Structure;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -20,10 +21,20 @@ import java.util.HashMap;
 
 public class KitManager {
 
-    @Getter private HashMap<Player, Kit> kitCache = new HashMap<>();
-    public void setKit(Player player, Kit kit) {this.kitCache.put(player, kit);}
-    public void removeKit(Player player) {this.kitCache.remove(player);}
-    public Kit getCurrentKit(Player player) {return kitCache.get(player);}
+    @Getter
+    private HashMap<Player, Kit> kitCache = new HashMap<>();
+
+    public void setKit(Player player, Kit kit) {
+        this.kitCache.put(player, kit);
+    }
+
+    public void removeKit(Player player) {
+        this.kitCache.remove(player);
+    }
+
+    public Kit getCurrentKit(Player player) {
+        return kitCache.get(player);
+    }
 
 
     public void giveKitToPlayers() {
@@ -140,13 +151,15 @@ public class KitManager {
                     break;
                 case PYRO: {
                     ItemStack potion = new ItemStack(Material.POTION, 2);
-//TODO                    PotionEffect potionEffect = new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 6000, 1, true, true, true);
-//                    PotionMeta potionMeta = (PotionMeta) potion.getItemMeta();
-//                    potionMeta.addCustomEffect(potionEffect, true);
-//                    potion.setItemMeta((ItemMeta) potionEffect);
+                    PotionEffect potionEffect = new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 6000, 0, true, true, true);
+                    PotionMeta potionMeta = (PotionMeta) potion.getItemMeta();
+                    potionMeta.setColor(Color.fromRGB(247, 185, 0));
+                    potionMeta.setDisplayName("§7Trank der Feuerresistenz");
+                    potionMeta.addCustomEffect(potionEffect, true);
+                    potion.setItemMeta((ItemMeta) potionMeta);
 
                     player.getInventory().setItem(0, Items.createEnchantment(Material.IRON_SWORD, "§cEisenschwert", 1, Enchantment.FIRE_ASPECT, 2));
-//                    player.getInventory().setItem(1, potion);
+                    player.getInventory().setItem(1, potion);
                     break;
                 }
                 case MLG:
@@ -168,7 +181,9 @@ public class KitManager {
                     ItemStack stack0 = new ItemStack(Material.POTION, 2);
                     PotionEffect potionEffect = new PotionEffect(PotionEffectType.JUMP, 6000, 2, true, true, true);
                     PotionMeta potionMeta = (PotionMeta) stack0.getItemMeta();
+                    potionMeta.setColor(Color.fromRGB(116, 184, 31));
                     potionMeta.addCustomEffect(potionEffect, true);
+                    potionMeta.setDisplayName("§7Trank der Sprungkraft");
                     stack0.setItemMeta((ItemMeta) potionEffect);
 
                     player.getInventory().setItem(0, Miner1);
@@ -180,6 +195,7 @@ public class KitManager {
                     ItemStack stack0 = new ItemStack(Material.POTION, 2);
                     PotionMeta pm = (PotionMeta) stack0.getItemMeta();
                     pm.addCustomEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 20 * 30, 1), true);
+                    pm.setColor(Color.fromRGB(204, 204, 204));
                     pm.setDisplayName("§7Unsichtbarkeits Trank");
                     ArrayList<String> lore = new ArrayList<>();
                     lore.add("§7Unsichtbarkeit I ➡ 30 sek.");
@@ -194,6 +210,7 @@ public class KitManager {
                     ItemStack stack0 = new ItemStack(Material.POTION, 2);
                     PotionMeta pm = (PotionMeta) stack0.getItemMeta();
                     pm.addCustomEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 30, 1), true);
+                    pm.setColor(Color.fromRGB(130, 6, 12));
                     pm.setDisplayName("§7Stärke Trank");
                     ArrayList<String> lore = new ArrayList<>();
                     lore.add("§7Stärke I ➡ 30 sek.");
@@ -219,6 +236,7 @@ public class KitManager {
                     ItemStack stack0 = new ItemStack(Material.POTION, 3);
                     PotionMeta pm = (PotionMeta) stack0.getItemMeta();
                     pm.addCustomEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 30, 2), true);
+                    pm.setColor(Color.fromRGB(170, 201, 232));
                     pm.setDisplayName("§7Schnelligkeits Trank");
                     ArrayList<String> lore = new ArrayList<>();
                     lore.add("§7Schnelligkeit II ➡ 30 sek.");

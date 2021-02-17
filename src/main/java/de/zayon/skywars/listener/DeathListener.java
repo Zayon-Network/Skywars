@@ -38,7 +38,6 @@ public class DeathListener implements Listener {
         Player player = event.getEntity().getPlayer();
 
         Bukkit.getScheduler().runTaskAsynchronously(this.skywars, () -> {
-            player.sendMessage(StringData.getPrefix() + "Du hast §c200 §7Punkte erhalten.");
             player.sendTitle("", "§9Du bist Gestorben!", 40, 120, 60);
             event.setDroppedExp(0);
 
@@ -57,19 +56,18 @@ public class DeathListener implements Listener {
                     this.killCount.replace(killer, killCount.get(killer) + 1);
                     ZayonAPI.getZayonAPI().getPointsAPI().updatePoints(player, PointsAPI.UpdateType.ADD, 50);
                     ZayonAPI.getZayonAPI().getPointsAPI().updatePoints(player, PointsAPI.UpdateType.ADD, 250);
-                    killer.sendMessage(StringData.getPrefix() + "§7Du hast  " + StringData.getHighlightColor() + "250 Punkte§7 erhalten!");
-                    player.sendMessage(StringData.getPrefix() + "§7Du hast §9 " + StringData.getHighlightColor() + "50 Punkte§7 erhalten!");
-                    event.setDeathMessage(StringData.getPrefix() + "§7Der Spieler " + StringData.getHighlightColor() + player.getDisplayName() + " §7wurde von " + StringData.getHighlightColor() + killer.getDisplayName() + " §7getötet!");
-
+                    killer.sendMessage(StringData.getPrefix() + "§7Du hast " + StringData.getHighlightColor() + "250 Punkte§7 erhalten!");
+                    player.sendMessage(StringData.getPrefix() + "§7Du hast " + StringData.getHighlightColor() + "50 Punkte§7 erhalten!");
 
                     Bukkit.getScheduler().runTask(this.skywars, () -> {
-                        killer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 3 * 20, 5));
+                        event.setDeathMessage(StringData.getPrefix() + "§7Der Spieler " + StringData.getHighlightColor() + player.getDisplayName() + " §7wurde von " + StringData.getHighlightColor() + killer.getDisplayName() + " §7getötet!");
+                        killer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 3 * 20, 1));
                     });
                 } else {
-                    event.setDeathMessage(StringData.getPrefix() + "§7Der Spieler " + StringData.getHighlightColor() + player.getDisplayName() + " §7hat Selbstmord begangen!");
-                    Bukkit.getScheduler().runTaskLater(this.skywars, () -> {
+                    Bukkit.getScheduler().runTask(this.skywars, () -> {
+                        event.setDeathMessage(StringData.getPrefix() + "§7Der Spieler " + StringData.getHighlightColor() + player.getDisplayName() + " §7hat Selbstmord begangen!");
                         player.teleport(new Location(Bukkit.getWorld("WLobby"), 152.5, 52, 148.5, 60, 0));
-                    }, 15);
+                    });
                 }
 
                 Team team = GameData.getTeamCache().get(player);

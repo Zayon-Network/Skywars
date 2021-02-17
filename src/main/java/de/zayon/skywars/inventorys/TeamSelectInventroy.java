@@ -25,7 +25,8 @@ public class TeamSelectInventroy extends SpigotOnePageInventoryWrapper {
 
     public TeamSelectInventroy(Player player) {
         super(player, CONFIG_WRAPPER);
-        setInventoryType(InventoryType.getChestInventoryWithRows((int) Math.ceil(GameData.getTeamAmount() / 9)));
+        int size = (int) Math.ceil(GameData.getTeamAmount() / 9);
+        setInventoryType(InventoryType.getChestInventoryWithRows(1 > size ? 1 : size));
         setTitle("§7Teamauswahl");
 
         for (Team t : ZayonAPI.getZayonAPI().getTeamAPI().getRegisteredTeams()) {

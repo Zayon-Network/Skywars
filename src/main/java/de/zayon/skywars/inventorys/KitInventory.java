@@ -54,7 +54,6 @@ public class KitInventory extends SpigotOnePageInventoryWrapper {
             String argument = (String) click.getArguments().get(0);
             Integer argument2 = (Integer) click.getArguments().get(1);
             selectKitHandler((Player) getPlayer(), argument, argument2, Converters.convert(click.getClickedItem(), ItemStack.class));
-            updateKitCache((Player) getPlayer(), argument);
             return CallResult.DENY_GRABBING;
         });
     }
@@ -66,7 +65,9 @@ public class KitInventory extends SpigotOnePageInventoryWrapper {
             player.sendMessage(StringData.getPrefix() + "§7Du hast das Kit "+StringData.getHighlightColor()+kitName.replaceAll("oe", "ö").replaceAll("ue", "ü").replaceAll("ae", "ä")+" §7ausgewählt.");
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 3.0F);
             player.closeInventory();
-        } else if(!player.hasPermission("skywars.kits." + kitName) || (player.hasPermission("skywars.kits.*"))) {
+
+            updateKitCache(player, kitName);
+        } else {
             player.openInventory((Inventory) new BuyInventory(player, kitName, price, icon).build());
         }
     }

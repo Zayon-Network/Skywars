@@ -40,6 +40,11 @@ public class BuyInventory extends SpigotOnePageInventoryWrapper {
         set(0, Items.createItem(Material.LIME_DYE, "§aKaufen", 1), "buyKit", new Arguments(arguments0));
         set(1, Items.createItem(icon.getType(), StringData.getHighlightColor()+kitName.replace("oe", "ö").replace("ue", "ü").replace("ae", "ä")+" §7» "+price+" Punkte", 1), "nothing");
         set(2, Items.createItem(Material.RED_DYE, "§cAbbrechen", 1), "deny");
+        if(ZayonAPI.getZayonAPI().getPointsAPI().getPoints(player) < price) {
+            set(4, Items.createItem(Material.RED_DYE, "§cDu hast leider nicht genug Punkte.", 1), "nothing");
+        } else {
+            set(4, Items.createItem(Material.LIME_DYE, "§aDu hast genug Punkte.", 1), "nothing");
+        }
     }
 
     public void updateInventory() {

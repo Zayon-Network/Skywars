@@ -59,7 +59,7 @@ public class InteractListener implements Listener {
                 player.openInventory(new KitInventory(player).build());
             }
         } else if (GameState.state == GameState.INGAME) {
-            if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
+            if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction().equals(Action.LEFT_CLICK_BLOCK) || event.getAction().equals(Action.PHYSICAL)) {
                 if (event.getClickedBlock().getType() == Material.CHEST || event.getClickedBlock().getType() == Material.TRAPPED_CHEST) {
 
                     Location loc = event.getClickedBlock().getLocation();

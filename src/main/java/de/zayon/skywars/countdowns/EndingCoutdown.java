@@ -36,6 +36,10 @@ public class EndingCoutdown {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.teleport(new Location(Bukkit.getWorld("WLobby"), 152.5, 52, 148.5, 60, 0));
                 player.getInventory().clear();
+                player.setTotalExperience(0);
+                player.setHealth(20L);
+                player.setFoodLevel(20);
+                player.setGameMode(GameMode.ADVENTURE);
                 player.getInventory().setItem(8, Items.createItem(Material.HEART_OF_THE_SEA, "§7Zurück zur Lobby", 1));
             }
             Bukkit.broadcastMessage("");
@@ -45,8 +49,8 @@ public class EndingCoutdown {
                 Bukkit.broadcastMessage("§7- " + player.getDisplayName());
                 //TODO Add coins
 
-                ZayonAPI.getZayonAPI().getPointsAPI().updatePoints(player, PointsAPI.UpdateType.ADD, 250);
-                player.sendMessage(StringData.getPrefix() + "Du hast §c250 §7Punkte erhalten.");
+                ZayonAPI.getZayonAPI().getPointsAPI().updatePoints(player, PointsAPI.UpdateType.ADD, 350);
+                player.sendMessage(StringData.getPrefix() + "Du hast "+StringData.getHighlightColor()+"350 §7Punkte erhalten.");
 
                 Skywars.getSkywars().getUserFactory().updateWins(player, UserFactory.UpdateType.ADD, 1);
             }

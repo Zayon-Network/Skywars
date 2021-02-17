@@ -55,6 +55,8 @@ public class Skywars extends JavaPlugin {
     @Getter private ServerPingListener serverPingListener;
     @Getter private WeatherChangeListener weatherChangeListener;
     @Getter private PlayerMoveListener playerMoveListener;
+    @Getter private FoodLevelListener foodLevelListener;
+    @Getter private PlayerFishListener playerFishListener;
 
 
     @Getter private LobbyCountdown lobbyCountdown;
@@ -94,6 +96,8 @@ public class Skywars extends JavaPlugin {
         this.endingCoutdown = new EndingCoutdown(this);
         this.ingameCountdown = new IngameCountdown(this);
         this.playerMoveListener = new PlayerMoveListener(this);
+        this.foodLevelListener = new FoodLevelListener(this);
+        this.playerFishListener = new PlayerFishListener();
 
         loadTeams();
         this.userFactory.createTable();
@@ -109,11 +113,14 @@ public class Skywars extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(serverPingListener, this);
         Bukkit.getPluginManager().registerEvents(weatherChangeListener, this);
         Bukkit.getPluginManager().registerEvents(playerMoveListener, this);
+        Bukkit.getPluginManager().registerEvents(playerFishListener, this);
         getCommand("start").setExecutor(startCommand);
         getCommand("setspawn").setExecutor(setspawnCommand);
 
         Bukkit.getWorld("world").setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
         Bukkit.getWorld("WLobby").setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
+        Bukkit.getWorld("WLobby").setGameRule(GameRule.DO_MOB_SPAWNING, false);
+        Bukkit.getWorld("world").setGameRule(GameRule.DO_MOB_SPAWNING, false);
         Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
         Bukkit.getWorld("world").setGameRule(GameRule.DO_WEATHER_CYCLE, false);
         Bukkit.getWorld("world").setTime(5000L);
@@ -133,7 +140,9 @@ public class Skywars extends JavaPlugin {
                         ChatColor.DARK_AQUA,
                         ChatColor.DARK_RED,
                         ChatColor.DARK_BLUE,
-                        ChatColor.DARK_PURPLE));
+                        ChatColor.DARK_PURPLE,
+                        ChatColor.DARK_GREEN,
+                        ChatColor.BLACK));
 
 
         for (int i = 0; i < GameData.getTeamAmount(); i++) {

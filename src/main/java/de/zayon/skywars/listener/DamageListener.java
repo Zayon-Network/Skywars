@@ -19,7 +19,7 @@ public class DamageListener implements Listener {
 
         if(e.getEntity() instanceof Player){
             Player p = (Player) e.getEntity();
-            if(GameState.state == GameState.LOBBY || (GameState.state == GameState.INGAME && IngameCountdown.getCounter() < 30)) {
+            if(GameState.state == GameState.LOBBY || (GameState.state == GameState.INGAME && IngameCountdown.getCounter() < 30) || GameState.state == GameState.END) {
                 e.setCancelled(true);
             }
             if(!GameData.getIngame().contains(p)) {
