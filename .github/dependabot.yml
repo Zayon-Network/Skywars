@@ -1,0 +1,14 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: io.sentry:sentry
+    versions:
+    - 4.2.0
+  - dependency-name: org.spigotmc:spigot
+    versions:
+    - 1.16.4-SNAPSHOT
