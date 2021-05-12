@@ -34,6 +34,7 @@ public class Skywars extends JavaPlugin {
     @Getter private static Skywars skywars;
     @Getter private SpigotConfig generalConfig;
     @Getter private SpigotConfig locationConfig;
+    @Getter private SpigotConfig databaseConfig;
     @Getter private SidebarCache sidebarCache;
     @Getter private ScoreboardManager scoreboardManager;
     @Getter private GroupManager groupManager;
@@ -69,6 +70,7 @@ public class Skywars extends JavaPlugin {
 
         this.generalConfig = ConfigFactory.create(new File(getDataFolder(), "general_settings.yml"), SpigotConfig.class);
         this.locationConfig = ConfigFactory.create(new File(getDataFolder(), "location_settings.yml"), SpigotConfig.class);
+        this.databaseConfig = ConfigFactory.create(new File(getDataFolder(), "database_settings.yml"), SpigotConfig.class);
 
         WorldCreator w = WorldCreator.name("WLobby");
         Bukkit.createWorld(w);

@@ -24,13 +24,13 @@ public class DatabaseLib implements Closeable {
     public DatabaseLib(Skywars skywars) {
         this.skywars = skywars;
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl((String) skywars.getGeneralConfig().getOrSetDefault("config.database.url", "jdbc:mysql://localhost:3306/database"));
-        hikariConfig.setUsername((String) skywars.getGeneralConfig().getOrSetDefault("config.database.username", "username"));
-        hikariConfig.setPassword((String) skywars.getGeneralConfig().getOrSetDefault("config.database.password", "password"));
+        hikariConfig.setJdbcUrl((String) skywars.getDatabaseConfig().getOrSetDefault("config.database.url", "jdbc:mysql://localhost:3306/database"));
+        hikariConfig.setUsername((String) skywars.getDatabaseConfig().getOrSetDefault("config.database.username", "username"));
+        hikariConfig.setPassword((String) skywars.getDatabaseConfig().getOrSetDefault("config.database.password", "password"));
         hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
         hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
         hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-        skywars.getGeneralConfig().save();
+        skywars.getDatabaseConfig().save();
         this.hikariDataSource = new HikariDataSource(hikariConfig);
     }
 
