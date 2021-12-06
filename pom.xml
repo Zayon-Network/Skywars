@@ -55,18 +55,6 @@
 
     <repositories>
         <repository>
-            <id>cloudnet</id>
-            <url>https://cloudnetservice.eu/repositories/</url>
-        </repository>
-        <repository>
-            <id>exceptionflug</id>
-            <url>http://mvn.exceptionflug.de/repository/exceptionflug-public</url>
-        </repository>
-        <repository>
-            <id>hikari</id>
-            <url>https://mvnrepository.com/artifact/com.zaxxer/HikariCP</url>
-        </repository>
-        <repository>
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
@@ -74,73 +62,107 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>cloudnet-releases</id>
+            <url>https://repo.cloudnetservice.eu/repository/releases/</url>
+        </repository>
+        <repository>
+            <id>exceptionflug</id>
+            <url>http://mvn.exceptionflug.de/repository/exceptionflug-public/</url>
+        </repository>
+        <repository>
+            <id>hikari</id>
+            <url>https://mvnrepository.com/artifact/com.zaxxer/HikariCP/</url>
+        </repository>
     </repositories>
 
     <dependencies>
         <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.14.4-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>io.sentry</groupId>
             <artifactId>sentry</artifactId>
-            <version>4.1.0</version>
+            <version>3.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.18</version>
+            <version>1.18.22</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>5.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- CLOUD NET -->
+        <dependency>
             <groupId>de.dytanic.cloudnet</groupId>
             <artifactId>cloudnet-wrapper-jvm</artifactId>
-            <version>3.0.0-RELEASE</version>
+            <version>3.4.0-RELEASE</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>de.dytanic.cloudnet</groupId>
             <artifactId>cloudnet-bridge</artifactId>
-            <version>3.0.0-RELEASE</version>
+            <version>3.4.0-RELEASE</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>de.dytanic.cloudnet</groupId>
             <artifactId>cloudnet-driver</artifactId>
-            <version>3.0.0-RELEASE</version>
+            <version>3.4.0-RELEASE</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>de.dytanic.cloudnet</groupId>
             <artifactId>cloudnet-cloudperms</artifactId>
-            <version>3.0.0-RELEASE</version>
+            <version>3.4.0-RELEASE</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- MC COMMONS -->
         <dependency>
             <groupId>de.exceptionflug</groupId>
             <artifactId>mccommons-config-spigot</artifactId>
             <version>2.0-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>de.exceptionflug</groupId>
             <artifactId>mccommons-inventories-spigot</artifactId>
             <version>2.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.exceptionflug</groupId>
+            <artifactId>mccommons-holograms</artifactId>
+            <version>2.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>de.nehlen</groupId>
+            <artifactId>GameAPI</artifactId>
+            <version>1.0-STABLE</version>
+            <scope>system</scope>
+            <systemPath>E:/Projects/Plugins/GameAPI/target/gameapi-1.0-STABLE.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.6</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>C:/Users/Niklas/Desktop/Buildtool/spigot-1.14.4.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>4.0.2</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>de.zayon</groupId>
-            <artifactId>ZayonAPI</artifactId>
-            <version>1.2.2-STABLE</version>
-            <scope>system</scope>
-            <systemPath>E:/Projects/Plugins/ZayonAPI/target/original-ZayonAPI-1.3.0-STABLE.jar</systemPath>
+            <version>1.14.4-R0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
